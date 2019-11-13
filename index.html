@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CatFacts API</title>
+	<style type="text/css">
+		.button {
+
+		}
+	</style>
+	<script type="text/javascript">
+		function getCatFact() {
+		console.log("in the catfact function")
+		let xreq = new XMLHttpRequest();
+		console.log("after getting the httprequest from the catfact site");
+		xreq.open("GET","https://catfact.ninja/fact", true);
+		xreq.onreadystatechange = function() {
+			if(xreq.readyState == 4 && xreq.status == 200) {
+				result = xreq.responseText;
+				catfact = JSON.parse(result);
+				document.getElementById("page").innerHTML = "Your daily cat fact is: " + catfact.fact;			
+			}
+			if(xreq.readyState == 4 && xreq.status != 200) {
+				console.log("request is not 200");
+				document.getElementById("page").innerHTML = "Something went wrong, check the log";			
+			
+			}
+		}
+		xreq.send();
+		}
+		function getCatFacts() {
+		console.log("in the catfact function")
+		let xreq = new XMLHttpRequest();
+		console.log("after getting the httprequest from the catfact site");
+		xreq.open("GET","https://catfact.ninja/facts?limit=3", true);
+		xreq.onreadystatechange = function() {
+			if(xreq.readyState == 4 && xreq.status == 200) {
+				result = xreq.responseText;
+				catfact = JSON.parse(result);
+				var html = "Your daily list of cat facts is ";
+				for(var i = 0; i < 3; i++) {
+				   html += catfact.data[i].fact + " ";								
+				}
+				document.getElementById("page").innerHTML = html;
+			}
+			if(xreq.readyState == 4 && xreq.status != 200) {
+				console.log("request is not 200");
+				document.getElementById("page").innerHTML = "Something went wrong, check the log";			
+			
+			}
+		}
+		xreq.send();
+		}
+	</script>
+</head>
+<body>
+	<div id = "page"> If this doesn't change something went wrong </div>
+	<button type="button" value="Cat Fact" onclick="getCatFact()">
+		Cat Fact!
+	</button>
+
+	<button type="button" value="Multiple Cat Facts" onclick="getCatFacts()">
+		Cat Facts!
+	</button>
+	<br>
+	I selected the Cat Fact API that gives the user random cat facts. I found it on RapidAPI.com. I used the getcatfact() and getcatfacts() methods. This API is useful if you are at a cat convention and want to amuse and impress people with your vast knowledge of the feline species. Additionally this API is useful if you need to entertain children for many hours. Pulling cat fact after cat fact out of your hat will prove invaluable in this setting.
+</body>
+</html>
